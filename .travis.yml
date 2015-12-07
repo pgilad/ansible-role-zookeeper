@@ -5,16 +5,14 @@ sudo: required
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install openjdk-7-jre -Y
+  - sudo apt-get install -y openjdk-7-jre
 
 install:
   - pip install ansible
 
 script:
   - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
-
   - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
-
   - >
     ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
     | grep -q 'changed=0.*failed=0'
