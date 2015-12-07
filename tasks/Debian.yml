@@ -1,0 +1,69 @@
+---
+- name: ensure required packages are present
+  sudo: yes
+  apt: pkg={{ item }} state=present update_cache=yes cache_valid_time=3600
+  with_items:
+    - supervisor
+  tags: apt
+
+- name: ensure required folders exist
+  sudo: yes
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+  with_items:
+    - "{{ zookeeper_data_dir }}"
+    - "{{ zookeeper_install_dir }}"
+    - "{{ zookeeper_install_dir }}/conf"
+    - "{{ zookeeper_log_dir }}"
+    - /var/log/supervisor/zookeeper
+
+- name: ensure we have the required zookeeper version
+  sudo: yes
+  get_url:
+    url: "{{zookeeper_url}}"
+    dest: "{{ zookeeper_temp_archive }}"
+    force: no
+
+- name: ensure archive is unpacked
+  sudo: yes
+  unarchive:
+    copy: no
+    src: "{{ zookeeper_temp_archive }}"
+    dest: "/opt"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+
+- name: configure zookeeper
+  sudo: yes
+  template:
+    src: zoo.cfg.j2
+    dest: "{{ zookeeper_install_dir }}/conf/zoo.cfg"
+    owner: "{{ zookeeper_user }}"
+    group: "{{ zookeeper_group }}"
+
+- name: ensure zookeeper has correct id
+  sudo: yes
+  template:
+    src: myid.j2
+    dest: "{{ zookeeper_data_dir }}/myid"
+    owner: "{{ zookeeper_user }}"
+
+- name: ensure supervisor version is symlinked
+  sudo: yes
+  file: state=link src={{ zookeeper_install_dir }} dest={{ zookeeper_symlink_path }}
+
+- name: ensure zookeeper is supervised
+  sudo: yes
+  template:
+    src: zookeeper.conf.j2
+    dest: /etc/supervisor/conf.d/zookeeper.conf
+  notify:
+    - restart supervisor
+    - restart zookeeper
+
+- name: ensure zookeeper is started under supervisor
+  supervisorctl: name=zookeeper state=started

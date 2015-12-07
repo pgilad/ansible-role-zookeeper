@@ -1,0 +1,15 @@
+---
+- name: ensure zookeeper group exists
+  sudo: yes
+  group: name={{ zookeeper_group }} state=present system=yes
+
+- name: ensure zookeeper user exists
+  sudo: yes
+  user: name={{ zookeeper_user }} groups={{ zookeeper_group }} state=present append=yes
+
+- name: install the specific task
+  include: Debian.yml
+  when: ansible_os_family == 'Debian'
+
+- name: ensure zookeeper port is reachable by client
+  wait_for: state=started port={{ zookeeper_client_port }} timeout=30

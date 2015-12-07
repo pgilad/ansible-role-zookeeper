@@ -1,0 +1,8 @@
+[program:zookeeper]
+command={{ zookeeper_symlink_path }}/bin/zkServer.sh start-foreground
+directory=/tmp
+autostart=true
+autorestart=true
+startretries=10000
+user=root
+stdout_logfile=/var/log/supervisor/zookeeper.log

@@ -1,0 +1,8 @@
+---
+- hosts: all
+  sudo: yes
+  gather_facts: yes
+  remote_user: root
+  roles:
+    - geerlingguy.java
+    - ansible-role-zookeeper

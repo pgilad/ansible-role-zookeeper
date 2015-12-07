@@ -1,0 +1,6 @@
+---
+- name: restart supervisor
+  service: name=supervisor state=restarted
+
+- name: restart zookeeper
+  supervisorctl: name=zookeeper state=restarted
