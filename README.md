@@ -2,6 +2,8 @@
 
 > An Ansible role to install and setup zookeeper
 
+[![Build Status](https://travis-ci.org/pgilad/ansible-role-zookeeper.svg?branch=master)](https://travis-ci.org/pgilad/ansible-role-zookeeper)
+
 ## Install
 
 ```bash
