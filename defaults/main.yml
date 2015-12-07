@@ -18,6 +18,7 @@ zookeeper_client_port: 2181
 zookeeper_servers:
   - host: "{{ inventory_hostname }}"
     ports: 2888:3888
+    zoo_id: 1
 
 zookeeper_autopurge_enabled: no
 zookeeper_autopurge_snap_retain_count: 32

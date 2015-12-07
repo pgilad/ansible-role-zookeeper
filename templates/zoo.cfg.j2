@@ -8,11 +8,10 @@ dataLogDir={{ zookeeper_log_dir }}
 clientPort={{ zookeeper_client_port }}
 
 {% for server in zookeeper_servers -%}
-    server.{{ loop.index}}={{ server.host }}:{{ server.ports }}
+    server.{{ server.zoo_id }}={{ server.host }}:{{ server.ports }}
 {% endfor %}
 
 {% if zookeeper_autopurge_enabled -%}
     autopurge.snapRetainCount={{ zookeeper_autopurge_snap_retain_count }}
-    # Purge task interval in hours
     autopurge.purgeInterval={{ zookeeper_autopurge_interval }}
 {% endif %}
