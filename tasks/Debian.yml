@@ -61,9 +61,15 @@
   template:
     src: zookeeper.conf.j2
     dest: /etc/supervisor/conf.d/zookeeper.conf
-  notify:
-    - restart supervisor
-    - restart zookeeper
+  register: supervisor_zookeeper
+
+- name: restart supervisor
+  service: name=supervisor state=restarted
+  when: supervisor_zookeeper | changed
+
+- name: restart zookeeper
+  supervisorctl: name=zookeeper state=restarted
+  when: supervisor_zookeeper | changed
 
 - name: ensure zookeeper is started under supervisor
   supervisorctl: name=zookeeper state=started

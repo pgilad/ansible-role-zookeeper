@@ -7,7 +7,7 @@
   sudo: yes
   user: name={{ zookeeper_user }} groups={{ zookeeper_group }} state=present append=yes
 
-- name: install the specific task
+- name: install zookeeper by specific os
   include: Debian.yml
   when: ansible_os_family == 'Debian'
 

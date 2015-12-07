@@ -3,5 +3,9 @@
   sudo: yes
   gather_facts: yes
   remote_user: root
+  pre_tasks:
+    - name: make sure java is installed
+      sudo: yes
+      apt: name=openjdk-7-jre update_cache=yes cache_valid_time=3600
   roles:
     - ansible-role-zookeeper
