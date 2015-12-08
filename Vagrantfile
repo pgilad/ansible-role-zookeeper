@@ -17,7 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         machine.vm.provision :ansible do |ansible|
             ansible.sudo = "yes"
             ansible.playbook = 'tests/test.yml'
-            ansible.extra_vars = { ansible_ssh_user: 'vagrant', zoo_id: 1 }
+            ansible.extra_vars = { ansible_ssh_user: 'vagrant' }
         end
     end
 end
