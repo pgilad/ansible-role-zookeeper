@@ -10,6 +10,10 @@
 $ ansible-galaxy install pgilad.zookeeper
 ```
 
+## Supported OS
+
+Currently only **Ubuntu** is supported. PRs for additional distro support is highly appreciated!!
+
 ## Dependencies
 
 ZooKeeper requires that you have Java. You can use [these install instructions](http://askubuntu.com/questions/48468/how-do-i-install-java) to install Java on Linux systems.
