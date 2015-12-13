@@ -59,7 +59,7 @@ zookeeper_autopurge_interval: 24
 ```yml
 - hosts: zookeeper
   roles:
-    - pgilad.nvm
+    - pgilad.zookeeper
 ```
 
 ## License
