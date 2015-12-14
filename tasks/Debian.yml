@@ -64,7 +64,7 @@
   register: supervisor_zookeeper
 
 - name: restart supervisor
-  service: name=supervisor state=restarted
+  service: name=supervisor state=restarted sleep=3
   when: supervisor_zookeeper | changed
 
 - name: restart zookeeper
