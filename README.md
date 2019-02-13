@@ -64,4 +64,4 @@ zookeeper_autopurge_interval: 24
 
 ## License
 
-MIT @[Gilad Peleg](http://giladpeleg.com)
+MIT © [Gilad Peleg](https://www.giladpeleg.com)
